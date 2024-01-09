@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Types of Pastas</h1>
+
+{% for pasta in pastas %}
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ pasta.name }}</span>
+        <p><strong>Type:</strong> {{ pasta.type }}</p>
+        <p><strong>Cook Time:</strong> {{ pasta.cook_time }} mins</p>
+    </div>
+</div>
+{% endfor %}
+
+{% if pastas %}
+<p>Total Pastas:
+{{ pastas|length }}</p>
+{% else %}
+<p>There are no pastas yet.</p>
+{% endif %}
+
+{% endblock %}
