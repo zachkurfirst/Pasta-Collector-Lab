@@ -7,15 +7,18 @@ class Pasta(models.Model):
     RIBBON_CUT = 'RC'
     TUBE_SHAPED = 'TS'
     STUFFED = 'ST'
-    TYPE_CHOICES = [
-        (SMALL_PASTA, 'Small Pasta'),
-        (RIBBON_CUT, 'Ribbon-Cut'),
-        (TUBE_SHAPED, 'Tube-Shaped'),
-        (STUFFED, 'Stuffed'),
-    ]
+    TYPE_CHOICES = {
+        SMALL_PASTA: 'Small Pasta',
+        RIBBON_CUT: 'Ribbon-Cut',
+        TUBE_SHAPED: 'Tube-Shaped',
+        STUFFED: 'Stuffed',
+    }
     type = models.CharField(
         max_length=2,
         choices=TYPE_CHOICES,
         default=SMALL_PASTA,
         )
-    cook_time = models.DurationField()
+    cook_time = models.IntegerField()
+
+    def __str__(self):
+        return self.name
