@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ pasta.name }}</h1>
+
+<div class="card">
+    <div class="card-content">
+        <p><strong>Type:</strong> {{ pasta.type }}</p>
+        <p><strong>Cook Time:</strong> {{ pasta.cook_time }} mins</p>
+    </div>
+</div>
+
+{% endblock %}
