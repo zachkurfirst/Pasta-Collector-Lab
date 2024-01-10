@@ -3,10 +3,10 @@ from django.db import models
 # Create your models here.
 class Pasta(models.Model):
     name = models.CharField(max_length=50)
-    SMALL_PASTA = 'SM'
-    RIBBON_CUT = 'RC'
-    TUBE_SHAPED = 'TS'
-    STUFFED = 'ST'
+    SMALL_PASTA = 'Small Pasta'
+    RIBBON_CUT = 'Ribbon-Cut'
+    TUBE_SHAPED = 'Tube-Shaped'
+    STUFFED = 'Stuffed'
     TYPE_CHOICES = {
         SMALL_PASTA: 'Small Pasta',
         RIBBON_CUT: 'Ribbon-Cut',
@@ -14,7 +14,7 @@ class Pasta(models.Model):
         STUFFED: 'Stuffed',
     }
     type = models.CharField(
-        max_length=2,
+        max_length=20,
         choices=TYPE_CHOICES,
         default=SMALL_PASTA,
         )
