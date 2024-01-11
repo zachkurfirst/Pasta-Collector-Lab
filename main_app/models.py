@@ -1,4 +1,6 @@
 from django.db import models
+# Import the reverse function
+from django.urls import reverse
 
 # Create your models here.
 class Pasta(models.Model):
@@ -22,3 +24,7 @@ class Pasta(models.Model):
 
     def __str__(self):
         return self.name
+    
+    # handle redirect to detail page
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'pasta_id': self.id})

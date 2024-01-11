@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
+# Import for Class-based Views
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
 # Import Model
 from .models import Pasta
 
@@ -44,3 +48,18 @@ def pastas_detail(request, pasta_id):
     return render(request, 'pastas/detail.html', {
         'pasta': pasta
     })
+
+# PASTAS CREATE CLASS-BASED VIEW
+class PastaCreate(CreateView):
+    model = Pasta
+    fields = '__all__'
+
+# PASTAS UPDATE CLASS-BASED VIEW
+class PastaUpdate(UpdateView):
+    model = Pasta
+    fields = ['type', 'cook_time']
+
+# PASTAS DELETE CLASS-BASED VIEW
+class PastaDelete(DeleteView):
+    model = Pasta
+    success_url = reverse_lazy('index')

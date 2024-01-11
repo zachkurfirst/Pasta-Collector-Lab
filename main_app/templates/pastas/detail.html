@@ -8,7 +8,11 @@
         <p><strong>Type:</strong> {{ pasta.type }}</p>
         <p><strong>Cook Time:</strong> {{ pasta.cook_time }} mins</p>
     </div>
+<div class="card-action">
+    <a href="/pastas" class="right">All Pastas</a>
+    <a href="{% url 'pastas_update' pasta.id %}">Edit</a>
+    <a href="{% url 'pastas_delete' pasta.id %}">Delete</a>
 </div>
-<a href="/pastas">All Pastas</a>
+</div>
 
 {% endblock %}
