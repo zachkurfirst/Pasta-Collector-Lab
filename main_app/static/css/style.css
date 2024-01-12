@@ -33,3 +33,11 @@ select {
 .card .card-action a:hover {
   color: green !important;
 }
+
+.btn {
+  background-color: green;
+}
+
+.btn:hover {
+  background-color: darkgreen;
+}

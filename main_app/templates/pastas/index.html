@@ -4,14 +4,15 @@
 <h1>Types of Pastas</h1>
 
 {% for pasta in pastas %}
+<a href="{% url 'detail' pasta.id %}">
 <div class="card">
-    <div class="card-content">
+    <div class="card-content black-text">
         <span class="card-title">{{ pasta.name }}</span>
         <p><strong>Type:</strong> {{ pasta.type }}</p>
         <p><strong>Cook Time:</strong> {{ pasta.cook_time }} mins</p>
-        <a href="{% url 'detail' pasta.id %}">Learn more</a>
     </div>
 </div>
+</a>
 {% endfor %}
 
 {% if pastas %}
