@@ -2,6 +2,13 @@ from django.db import models
 # Import the reverse function
 from django.urls import reverse
 
+PASTA_TYPES = (
+    ('SM', 'Small Pasta'),
+    ('RC', 'Ribbon-Cut'),
+    ('TS', 'Tube-Shaped'),
+    ('ST', 'Stuffed')
+)
+
 DIFFICULTY = (
     ('E', 'Easy'),
     ('M', 'Moderate'),
@@ -11,20 +18,10 @@ DIFFICULTY = (
 # Create your models here.
 class Pasta(models.Model):
     name = models.CharField(max_length=50)
-    SMALL_PASTA = 'Small Pasta'
-    RIBBON_CUT = 'Ribbon-Cut'
-    TUBE_SHAPED = 'Tube-Shaped'
-    STUFFED = 'Stuffed'
-    TYPE_CHOICES = {
-        SMALL_PASTA: 'Small Pasta',
-        RIBBON_CUT: 'Ribbon-Cut',
-        TUBE_SHAPED: 'Tube-Shaped',
-        STUFFED: 'Stuffed',
-    }
     type = models.CharField(
-        max_length=20,
-        choices=TYPE_CHOICES,
-        default=SMALL_PASTA,
+        max_length=2,
+        choices=PASTA_TYPES,
+        default=PASTA_TYPES[0][0],
         )
     cook_time = models.IntegerField()
 
@@ -35,12 +32,24 @@ class Pasta(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pasta_id': self.id})
     
+    # SMALL_PASTA = 'Small Pasta'
+    # RIBBON_CUT = 'Ribbon-Cut'
+    # TUBE_SHAPED = 'Tube-Shaped'
+    # STUFFED = 'Stuffed'
+    # TYPE_CHOICES = {
+    #     SMALL_PASTA: 'Small Pasta',
+    #     RIBBON_CUT: 'Ribbon-Cut',
+    #     TUBE_SHAPED: 'Tube-Shaped',
+    #     STUFFED: 'Stuffed',
+    # }
+
 class Dish(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=250)
     is_vegetarian = models.BooleanField()
     recipe_link = models.URLField()
     difficulty = models.CharField(
+        'cook difficulty',
         max_length=1,
         choices=DIFFICULTY,
         default=DIFFICULTY[1][0]
@@ -50,3 +59,6 @@ class Dish(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.get_difficulty_display()} difficulty"
+    
+    class Meta:
+        ordering = ['difficulty']

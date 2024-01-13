@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Import for Class-based Views
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -6,6 +6,9 @@ from django.urls import reverse_lazy
 
 # Import Model
 from .models import Pasta
+
+# Import ModelForm
+from .forms import DishForm
 
 # pastas = [
 #     {
@@ -45,8 +48,10 @@ def pastas_index(request):
 # PASTAS DETAIL VIEW - GET
 def pastas_detail(request, pasta_id):
     pasta = Pasta.objects.get(id=pasta_id) # retreive pasta by id
+    dish_form = DishForm() # invoke ModelForm
     return render(request, 'pastas/detail.html', {
-        'pasta': pasta
+        'pasta': pasta,
+        'dish_form': dish_form
     })
 
 # PASTAS CREATE CLASS-BASED VIEW
@@ -63,3 +68,13 @@ class PastaUpdate(UpdateView):
 class PastaDelete(DeleteView):
     model = Pasta
     success_url = reverse_lazy('index')
+
+# PASTA - CREATE DISH
+def add_dish(request, pasta_id):
+    form = DishForm(request.POST)
+    if form.is_valid():
+        new_dish = form.save(commit=False)
+        new_dish.pasta_id = pasta_id
+        new_dish.save()
+    return redirect('detail', pasta_id=pasta_id)
+

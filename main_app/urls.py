@@ -9,4 +9,5 @@ urlpatterns = [
     path('pastas/create', views.PastaCreate.as_view(), name='pastas_create'),
     path('pastas/<int:pk>/update', views.PastaUpdate.as_view(), name='pastas_update'),
     path('pastas/<int:pk>/delete', views.PastaDelete.as_view(), name='pastas_delete'),
+    path('pastas/<int:pasta_id>/add_dish/', views.add_dish, name='add_dish'),
 ]

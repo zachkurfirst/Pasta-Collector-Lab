@@ -1,18 +1,58 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>{{ pasta.name }}</h1>
 
-<div class="card">
-    <div class="card-content">
+<div class="row">
+  <div>
+    <div class="card">
+      <div class="card-content">
         <p><strong>Type:</strong> {{ pasta.type }}</p>
         <p><strong>Cook Time:</strong> {{ pasta.cook_time }} mins</p>
+      </div>
+      <div class="card-action">
+        <a href="/pastas" class="right">All Pastas</a>
+        <a href="{% url 'pastas_update' pasta.id %}">Edit</a>
+        <a href="{% url 'pastas_delete' pasta.id %}">Delete</a>
+      </div>
     </div>
-<div class="card-action">
-    <a href="/pastas" class="right">All Pastas</a>
-    <a href="{% url 'pastas_update' pasta.id %}">Edit</a>
-    <a href="{% url 'pastas_delete' pasta.id %}">Delete</a>
+  </div>
+  <br />
+  <!-- Display cat feedings -->
+  <h3>Dishes</h3>
+  <div>
+    <form action="{% url 'add_dish' pasta.id %}" method="POST">
+        {% csrf_token %}
+        <!-- Render the inputs -->
+        {{ dish_form.as_p }}
+        <input type="submit" class="btn" value="Add Dish">
+    </form>
+      <br />
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Vegetarian</th>
+          <th>Recipe</th>
+          <th>Difficulty</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dish in pasta.dish_set.all %}
+        <tr>
+          <td>{{ dish.name|linebreaks }}</td>
+          <td>{{ dish.description|linebreaks }}</td>
+          <td>{{ dish.is_vegetarian }}</td>
+          <td><a href="{{ dish.recipe_link }}" target="_blank" rel="noopener noreferrer">View</a></td>
+          <td>{{ dish.get_difficulty_display }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
-</div>
-
+<script>
+    const difficultyEl = document.getElementById('id_difficulty');
+    M.FormSelect.init(difficultyEl);
+</script>
 {% endblock %}
